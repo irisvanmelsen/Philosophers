@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:23:33 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/05 18:00:51 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:17:08 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 char	*get_error_name(t_error er)
 {
 	static char	*str[] = {
-	[ERROR_ARGUMENTS] = "Invalid Amount of Arguments" \
-	[ERROR_ARGUMENTS2] = "Invalid Argument"};
+	[ERROR_ARGUMENTS] = "Invalid Amount of Arguments", \
+	[ERROR_ARGUMENTS2] = "Invalid Argument", \
+	[ERROR_THREAD] = "Thread Creation Failure"};
 
 	return (str[er]);
 }

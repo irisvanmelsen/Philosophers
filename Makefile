@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 10:12:14 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/06/05 10:18:26 by ivan-mel         ###   ########.fr        #
+#    Updated: 2023/06/13 17:19:03 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,12 @@ FLAGS 		=	-Wall -Werror -Wextra
 CC 			= 	gcc
 RM 			=	rm -rf
 AR			=	ar -rc
-SRC			=	main.c
+SRC			=	main.c \
+				error.c \
+				threads.c \
+				mutex.c \
+				initialise.c \
+				initialise_utils.c
 
 ifdef DEBUG
 	FLAGS += -g
@@ -55,7 +60,7 @@ all:	${NAME}
 
 ${NAME}: ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@${AR} ${NAME} $?
+	@${CC} ${OBJ} -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_Off}
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS) | $(OBJ_DIR)
