@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:08:48 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/13 18:24:15 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:16:08 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 
 void	*mutex_lock_and_unlock(void *arg)
 {
-	int	i;
-	int	nb_philo;
-	t_data *data = (t_data *)arg;
+	int		i;
+	int		nb_philo;
+	t_data	*data;
 
+	data = (t_data *)arg;
 	i = 0;
 	while (i < 100)
 	{

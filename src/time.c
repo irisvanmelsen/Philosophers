@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:33:02 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/13 18:08:35 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/14 19:47:19 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // 1 sec = hundred thousand (100 000) microseconds
 // 1 sec = thousand (1000) milliseconds
 
-int	get_milliseconds(void)
+int	get_time(void)
 {
 	struct timeval	time;
 

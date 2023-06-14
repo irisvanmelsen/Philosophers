@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:27:34 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/08 12:52:53 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:29:19 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,21 @@ int	philo_atoi(const char *str)
 		i++;
 	}
 	return (result);
+}
+
+void	*philo_calloc(size_t count, size_t size)
+{
+	char	*ptr;
+	size_t	i;
+
+	ptr = malloc(count * size);
+	i = 0;
+	if (ptr == NULL)
+		return (ptr);
+	while (i < (count * size))
+	{
+		ptr[i] = 0;
+		i++;
+	}
+	return ((void *)ptr);
 }

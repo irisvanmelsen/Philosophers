@@ -6,19 +6,19 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:24:15 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/13 18:24:34 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/14 21:03:00 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	init_args(int argc, char **argv, t_data *data)
+int	initialisation(int argc, char **argv, t_data *data)
 {
 	if (!argv[NUMBER] || !argv[DIE_TIME]
 		|| !argv[EAT_TIME] || !argv[EAT_TIME]
 		|| !argv[SLEEP_TIME])
 		return (print_error(get_error_name(ERROR_ARGUMENTS2)));
-	data->nb = philo_atoi(argv[NUMBER]);
+	data->nb_philo = philo_atoi(argv[NUMBER]);
 	data->die_time = philo_atoi(argv[DIE_TIME]);
 	data->eat_time = philo_atoi(argv[EAT_TIME]);
 	data->sleep_time = philo_atoi(argv[SLEEP_TIME]);
@@ -28,6 +28,8 @@ int	init_args(int argc, char **argv, t_data *data)
 			return (print_error(get_error_name(ERROR_ARGUMENTS2)));
 		data->each_time = philo_atoi(argv[EACH_TIME]);
 	}
+	if (philo_allocation(data))
+		return (print_error(get_error_name(ERROR_ALLOCATION)));
 	return (EXIT_SUCCESS);
 }
 
@@ -36,4 +38,32 @@ t_data	*init_mutex(t_data *data)
 	pthread_mutex_init(&data->die_mutex, NULL);
 	pthread_mutex_init(&data->each_mutex, NULL);
 	return (data);
+}
+
+int	philo_allocation(t_data *data)
+{
+	int		i;
+	t_philo	*philos;
+
+	i = 0;
+	philos = philo_calloc(sizeof (t_philo), data->nb_philo);
+	if (!philos)
+		return (print_error(get_error_name(ERROR_ALLOCATION)));
+	data->philos = philos;
+	data->forks = philo_calloc(sizeof (pthread_mutex_t), data->nb_philo);
+	if (!data->forks)
+	{
+		free(data->philos);
+		return (print_error(get_error_name(ERROR_ALLOCATION)));
+	}
+	while (i < data->nb_philo)
+	{
+		philos[i].data = data;
+		philos[i].philo_id = i + 1;
+		philos[i].have_eaten = 0;
+		printf("philo_id: %d\n", philos[i].philo_id);
+		printf("philo_data: %p\n", philos[i].data);
+		i++;
+	}
+	return (EXIT_SUCCESS);
 }
