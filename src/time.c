@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:33:02 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/14 19:47:19 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:36:58 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,22 @@ int	get_time(void)
 	if (gettimeofday(&time, NULL))
 		return (EXIT_FAILURE);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	sleeping(t_data *data)
+{
+	int	start_sleep;
+
+	start_sleep = get_time();
+	while (get_time() - start_sleep < data->sleep_time)
+		usleep(100);
+}
+
+void	waiting(t_data *data)
+{
+	int	wake_up;
+
+	wake_up = get_time() + data->sleep_time;
+	while (get_time() < wake_up)
+		usleep(100);
 }

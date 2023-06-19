@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:43:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/13 17:14:12 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:34:05 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@
 // this function should take a void* and returns void* pointer
 // arg: optional arg that can be passed to start_routine function
 // this arg is of type void* so it can pass data do thread function
+
+int	threads(t_data *data)
+{
+	data->start_time = get_time();
+	if (data->nb_philo % 2)
+		uneven_philos(data->philos);
+	else
+		even_philos();
+}
+
 
 int	test(t_data *data)
 {

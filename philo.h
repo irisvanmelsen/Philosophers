@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:50:42 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/14 21:00:56 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:31:21 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,23 @@ typedef enum e_error {
 
 
 typedef struct s_philo {
-	// last meal
 	// life
 	int				philo_id;
 	int				have_eaten;
+	int				last_meal;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*left_fork;
 	struct s_data	*data;
 }	t_philo;
 
 typedef struct s_data {
-	// start time
 	int				philosophers;
 	int				nb_philo;
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
 	int				each_time;
+	int				start_time;
 	pthread_t		*philo_thread;
 	pthread_mutex_t	die_mutex;
 	pthread_mutex_t	each_mutex;
