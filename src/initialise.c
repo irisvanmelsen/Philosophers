@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:24:15 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/14 21:03:00 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:12:17 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ t_data	*init_mutex(t_data *data)
 	return (data);
 }
 
+void	fork_initialisation(t_data *data, int index)
+{
+	data->philos[index].left_fork = &data->forks[index];
+	if ((index + 1) == data->nb_philo)
+		data->philos[index].right_fork = &data->forks[0];
+	else
+		data->philos[index].right_fork = &data->forks[index + 1];
+	return ;
+}
+
 int	philo_allocation(t_data *data)
 {
 	int		i;
@@ -60,9 +70,13 @@ int	philo_allocation(t_data *data)
 	{
 		philos[i].data = data;
 		philos[i].philo_id = i + 1;
-		philos[i].have_eaten = 0;
+		philos[i].has_eaten = 0;
+		philos[i].left_fork = NULL;
+		philos[i].right_fork = NULL;
+		fork_initialisation(data, philos[i].philo_id - 1);
 		printf("philo_id: %d\n", philos[i].philo_id);
-		printf("philo_data: %p\n", philos[i].data);
+		printf("forks right: %p\n", philos[i].right_fork);
+		printf("fork left: %p\n", philos[i].left_fork);
 		i++;
 	}
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:43:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/19 15:34:05 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:39:00 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,21 @@ int	threads(t_data *data)
 {
 	data->start_time = get_time();
 	if (data->nb_philo % 2)
-		uneven_philos(data->philos);
+		odd_philos(data->philos);
 	else
-		even_philos();
+		even_philos(data->philos);
 }
 
+void	odd_philos(t_data *data)
+{
+	usleep(data->eat_time / 2);
+}
+
+void	even_philos(t_data *data)
+{
+	left_fork();
+	right_fork();
+}
 
 int	test(t_data *data)
 {

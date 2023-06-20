@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eat.c                                              :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 14:54:37 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/20 18:12:08 by ivan-mel         ###   ########.fr       */
+/*   Created: 2023/06/20 12:22:11 by ivan-mel          #+#    #+#             */
+/*   Updated: 2023/06/20 18:24:00 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	right_fork(t_data *data)
+char	*actions(int action)
 {
-	mutex_lock_and_unlock(data->philos->right_fork);
+	static char	*str [] = {\
+	[THINKING] = "is thinking",
+	[SLEEPING] = "is sleeping",
+	[EATING] = "is eating",
+	[FORK] = "has taken a fork",
+	[DIED] = "died"};
+
+	return (str[action]);
 }
 
-void	left_fork(t_data *data)
+char	print_action(t_data *data, t_philo philo, int action)
 {
-	mutex_lock_and_unlock(data->philos->left_fork);
-}
+	int	time;
 
-void	eating(t_data *data)
-{
-	int	start_time;
-
-	start_time == get_time();
-	print_action(data, EATING);
-	data->philos->has_eaten++;
-	while (get_time() - start_time < data->eat_time)
-	{
-
-	}
+	time = data->start_time;
+	printf("%d, %d", time, data->philos->philo_id);
+	printf("%s", actions(action));
 }

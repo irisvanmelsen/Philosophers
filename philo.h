@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:50:42 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/19 15:31:21 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:12:00 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ typedef enum e_args {
 	SLEEP_TIME,
 	EACH_TIME,
 }	t_args;
+
+typedef enum e_action {
+	THINKING,
+	SLEEPING,
+	EATING,
+	FORK,
+	DIED,
+}	t_action;
 
 typedef enum e_error {
 	ERROR_ARGUMENTS,
@@ -46,11 +54,10 @@ typedef enum e_error {
 // _philosopher_must_eat times, the simulation stops. If not specified
 // the simulation stops when a philospher dies
 
-
 typedef struct s_philo {
-	// life
+	int				alive;
 	int				philo_id;
-	int				have_eaten;
+	int				has_eaten;
 	int				last_meal;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
@@ -71,7 +78,6 @@ typedef struct s_data {
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }	t_data;
-
 
 // ERROR
 char	*get_error_name(t_error er);

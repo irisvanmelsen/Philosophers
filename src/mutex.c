@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:08:48 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/14 10:16:08 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:19:12 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*mutex_lock_and_unlock(void *arg)
 
 	data = (t_data *)arg;
 	i = 0;
-	while (i < 100)
+	while (i < 5)
 	{
 		pthread_mutex_lock(&data->die_mutex);
 		nb_philo = data->nb_philo++;
