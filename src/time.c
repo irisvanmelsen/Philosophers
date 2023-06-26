@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:33:02 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/19 15:36:58 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:24:11 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,6 @@ int	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	sleeping(t_data *data)
-{
-	int	start_sleep;
-
-	start_sleep = get_time();
-	while (get_time() - start_sleep < data->sleep_time)
-		usleep(100);
-}
-
 void	waiting(t_data *data)
 {
 	int	wake_up;
@@ -49,4 +40,16 @@ void	waiting(t_data *data)
 	wake_up = get_time() + data->sleep_time;
 	while (get_time() < wake_up)
 		usleep(100);
+}
+
+int	died(t_data *data, int philo_id, int action)
+{
+	pthread_mutex_lock(&data->die_mutex);
+	if (get_time() - data->start_time > data->die_time)
+	{
+		print_action(data, philo_id, action);
+		pthread_mutex_unlock(&data->die_mutex);
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_FAILURE);
 }

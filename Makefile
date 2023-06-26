@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 10:12:14 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/06/20 16:01:34 by ivan-mel         ###   ########.fr        #
+#    Updated: 2023/06/26 15:20:30 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CC 			= 	gcc
 RM 			=	rm -rf
 AR			=	ar -rc
 SRC			=	main.c \
+				check.c \
 				error.c \
 				mutex.c \
 				initialise.c \

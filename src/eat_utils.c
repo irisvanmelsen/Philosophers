@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   eat_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 10:18:37 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/26 15:41:48 by ivan-mel         ###   ########.fr       */
+/*   Created: 2023/06/26 17:51:07 by ivan-mel          #+#    #+#             */
+/*   Updated: 2023/06/26 17:53:02 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	main(int argc, char **argv)
+void	let_go_left_fork(t_philo *philo)
 {
-	t_data	data;
+	pthread_mutex_unlock(philo->left_fork);
+}
 
-	if (is_input_correct(argc, argv))
-		return (EXIT_FAILURE);
-	if (initialisation(argc, argv, &data))
-		return (EXIT_FAILURE);
-	threads(data);
-	return (EXIT_SUCCESS);
+void	let_go_right_fork(t_philo *philo)
+{
+	pthread_mutex_unlock(philo->right_fork);
 }

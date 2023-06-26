@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:43:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/20 17:39:00 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:42:03 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,44 @@
 
 int	threads(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	data->start_time = get_time();
-	if (data->nb_philo % 2)
-		odd_philos(data->philos);
-	else
-		even_philos(data->philos);
+	while (i < data->nb_philo)
+	{
+		pthread_create(&data->philos[i], NULL, &routine, data);
+		i++;
+	}
 }
 
-void	odd_philos(t_data *data)
-{
-	usleep(data->eat_time / 2);
-}
+// lock and unlock is done so they all go eat at the same time
 
-void	even_philos(t_data *data)
+void	*routine(void *philosopher)
 {
-	left_fork();
-	right_fork();
+	t_philo	*philo;
+
+	philo = philosopher;
+	pthread_mutex_lock(&philo->data->lock_mutex);
+	pthread_mutex_unlock(&philo->data->lock_mutex);
+	while (1)
+	{
+		if (philo->alive == DIED)
+			break ;
+		if (eating(philo))
+			break ;
+		if (philo->alive == DIED)
+			break ;
+		if (sleeping(philo))
+			break ;
+		if (philo->alive == DIED)
+			break ;
+		if (thinking(philo))
+			break ;
+		if (philo->alive == DIED)
+			break ;
+	}
+	return (EXIT_SUCCESS);
 }
 
 int	test(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:22:11 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/20 18:24:00 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:08:05 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@ char	*actions(int action)
 	return (str[action]);
 }
 
-char	print_action(t_data *data, t_philo philo, int action)
-{
-	int	time;
+// maybe add bool function otherwise you are printing
+// while they are already dead
 
-	time = data->start_time;
-	printf("%d, %d", time, data->philos->philo_id);
-	printf("%s", actions(action));
+char	print_action(t_philo *philos, int philo, int action)
+{
+	int	start;
+
+	start = get_time();
+	
+	printf("%d, %d", time, philo);
+	printf("%s\n", actions(action));
 }
