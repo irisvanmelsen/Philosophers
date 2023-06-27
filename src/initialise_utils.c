@@ -6,11 +6,13 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:27:34 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/14 10:29:19 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:57:24 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+// add overflow protection atoi
 
 size_t	philo_strlen(const char *s)
 {
@@ -57,4 +59,20 @@ void	*philo_calloc(size_t count, size_t size)
 		i++;
 	}
 	return ((void *)ptr);
+}
+
+void	destroy_all_muti(t_data *data, int count)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_destroy(&data->die_mutex);
+	pthread_mutex_destroy(&data->each_mutex);
+	pthread_mutex_destroy(&data->lock_mutex);
+	pthread_mutex_destroy(&data->print_mutex);
+	while (i < count)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
 }

@@ -6,53 +6,52 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:54:37 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/26 17:57:38 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:00:52 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	grab_forks(t_data *data)
+void	grab_forks(t_philo *philo)
 {
-	if (data->nb_philo % 2)
-		odd_philos(data->philos);
+	if (philo->data->nb_philo % 2)
+		odd_philos(philo->data->philos);
 	else
-		even_philos(data->philos);
+		even_philos(philo->data->philos);
 }
 
-void	odd_philos(t_philo *philo)
+bool	odd_philos(t_philo *philo)
 {
-	right_fork(philo);
-	left_fork(philo);
-}
-
-void	even_philos(t_philo *philo)
-{
-	left_fork(philo);
-	right_fork(philo);
-}
-
-void	right_fork(t_philo *philo)
-{
-	pthread_mutex_lock(philo->right_fork);
-	print_action(philo, philo->philo_id, FORK);
-}
-
-void	left_fork(t_philo *philo)
-{
-	pthread_mutex_lock(philo->left_fork);
-	print_action(philo, philo->philo_id, FORK);
-}
-
-void	eating(t_philo *philo)
-{
-	int	start_time;
-	
-	start_time == get_time();
-	print_action(philo->data, philo->philo_id, EATING);
-	philo->has_eaten++;
-	while (get_time() - start_time < philo->data->eat_time)
+	if (right_fork(philo))
+		return (false);
+	if (left_fork(philo))
 	{
+		let_go_right_fork(philo);
+		return (false);
+	}
+	return (true);
+}
 
-	}s
+bool	even_philos(t_philo *philo)
+{
+	if (left_fork(philo))
+		return (false);
+	if (right_fork(philo))
+	{
+		let_go_left_fork(philo);
+		return (false);
+	}
+	return (true);
+}
+
+bool	eating(t_philo *philo)
+{
+	grab_forks(philo);
+	pthread_mutex_lock(&philo->eat_mutex);
+	philo->last_meal_time = get_time();
+	pthread_mutex_unlock(&philo->eat_mutex);
+	if (print_action(philo, EATING) == false)
+		return (false);
+	philo->has_eaten++;
+	return (true);
 }

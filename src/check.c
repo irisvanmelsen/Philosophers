@@ -6,13 +6,15 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:52:21 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/26 15:32:35 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:02:25 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	digit_check(int argc, char **argv)
+// make function that checks if values are correct / make sense
+
+bool	digit_check(int argc, char **argv)
 {
 	int	y;
 	int	x;
@@ -24,22 +26,19 @@ int	digit_check(int argc, char **argv)
 		while (argv[y][x])
 		{
 			if (argv[y][x] < '0' || argv[y][x] > '9')
-			{
-				printf("test2\n");
-				return (EXIT_FAILURE);
-			}
+				return (false);
 			x++;
 		}
 		y++;
 	}
-	return (EXIT_SUCCESS);
+	return (true);
 }
 
-int	is_input_correct(int argc, char **argv)
+bool	is_input_correct(int argc, char **argv)
 {
 	if (argc != 5 && argc != 6)
 		return (print_error(get_error_name(ERROR_AMOUNT_ARGUMENTS)));
-	if (digit_check(argc, argv))
+	if (digit_check(argc, argv) == false)
 		return (print_error(get_error_name(ERROR_INVALID_ARGUMENTS)));
-	return (EXIT_SUCCESS);
+	return (true);
 }

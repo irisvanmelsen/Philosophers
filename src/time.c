@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:33:02 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/26 16:24:11 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:31:53 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,28 @@ int	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	waiting(t_data *data)
+int	thinking(t_philo *philo)
 {
-	int	wake_up;
-
-	wake_up = get_time() + data->sleep_time;
-	while (get_time() < wake_up)
-		usleep(100);
+	if (philo->data->philo_has_died == true)
+		return (EXIT_FAILURE);
+	print_action(philo, THINKING);
+	return (EXIT_SUCCESS);
 }
 
-int	died(t_data *data, int philo_id, int action)
+bool	died(t_philo *philo)
 {
-	pthread_mutex_lock(&data->die_mutex);
-	if (get_time() - data->start_time > data->die_time)
+	int	last_mealtime;
+
+	pthread_mutex_lock(&philo->eat_mutex);
+	last_mealtime = philo->last_meal_time;
+	pthread_mutex_unlock(&philo->eat_mutex);
+	if (last_mealtime - philo->data->start_time > philo->data->die_time)
 	{
-		print_action(data, philo_id, action);
-		pthread_mutex_unlock(&data->die_mutex);
-		return (EXIT_SUCCESS);
+		pthread_mutex_lock(&philo->data->die_mutex);
+		philo->data->philo_has_died = true;
+		print_action(philo, DIED);
+		pthread_mutex_unlock(&philo->data->die_mutex);
+		return (true);
 	}
-	return (EXIT_FAILURE);
+	return (false);
 }

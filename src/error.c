@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:23:33 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/26 15:23:42 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:52:55 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char	*get_error_name(t_error er)
 	return (str[er]);
 }
 
-int	print_error(char *str)
+bool	print_error(char *str)
 {
 	write (STDERR_FILENO, str, philo_strlen(str));
 	write (STDERR_FILENO, "\n", 2);
-	return (EXIT_FAILURE);
+	return (false);
 }

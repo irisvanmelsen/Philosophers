@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:50:42 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/26 17:34:30 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:02:39 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <stdio.h>
+# include <sys/time.h>
+# include <stdbool.h>
 
 typedef enum e_args {
 	NUMBER = 1,
@@ -55,10 +57,10 @@ typedef enum e_error {
 // the simulation stops when a philospher dies
 
 typedef struct s_philo {
-	int				alive;
 	int				philo_id;
 	int				has_eaten;
-	int				last_meal;
+	int				last_meal_time;
+	pthread_mutex_t	eat_mutex;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
 	struct s_data	*data;
@@ -66,53 +68,76 @@ typedef struct s_philo {
 
 typedef struct s_data {
 	int				philosophers;
+	bool			philo_has_died;
 	int				nb_philo;
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
 	int				each_time;
 	int				start_time;
+	int				philo_created;
 	pthread_t		*philo_thread;
 	pthread_mutex_t	die_mutex;
 	pthread_mutex_t	each_mutex;
 	pthread_mutex_t	lock_mutex;
+	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }	t_data;
 
 // CHECK
-int		digit_check(int argc, char **argv);
-int		is_input_correct(int argc, char **argv);
+bool	digit_check(int argc, char **argv);
+bool	is_input_correct(int argc, char **argv);
 
 // ERROR
 char	*get_error_name(t_error er);
-int		print_error(char *str);
+bool	print_error(char *str);
 
 // INITIALISE
-int		initialisation(int argc, char **argv, t_data *data);
-void	init_mutex(t_data *data);
-void	fork_initialisation(t_data *data, int index);
+bool	initialisation(int argc, char **argv, t_data *data);
+bool	init_mutex(t_data *data);
+bool	fork_initialisation(t_data *data, int index);
 int		allocate_philo_data(t_data *data);
-int		allocation(t_data *data);
+bool	allocation(t_data *data);
 
 // INITIALISE_UTILS
 size_t	philo_strlen(const char *s);
 int		philo_atoi(const char *str);
 void	*philo_calloc(size_t count, size_t size);
+void	destroy_all_muti(t_data *data, int count);
 
 // THREADS
 
-int		test(t_data *data);
+bool	philo_threads(t_data *data);
+bool	monitoring(t_data *data);
+int		thread_join(t_data *data);
 
 // MUTEX
 void	*mutex_lock_and_unlock(void *arg);
 void	destroy_mutex(t_data *data);
 
+// EAT
+void	grab_forks(t_philo *philo);
+bool	odd_philos(t_philo *philo);
+bool	even_philos(t_philo *philo);
+bool	eating(t_philo *philo);
+
+// EAT UTILS
+bool	right_fork(t_philo *philo);
+bool	left_fork(t_philo *philo);
+void	let_go_left_fork(t_philo *philo);
+void	let_go_right_fork(t_philo *philo);
+
 // TIME
 int		get_time(void);
+int		thinking(t_philo *philo);
+bool	died(t_philo *philo);
+
+// SLEEP
+int		sleeping(t_philo *philo);
 
 // PRINT
-char	*actions(int action);
-char	print_action(t_philo *philos, int philo, int action);
+const char	*actions(int action);
+bool		print_action(t_philo *philo, int action);
 
 #endif
