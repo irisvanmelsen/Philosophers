@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:50:42 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/27 19:02:39 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:46:19 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,55 +86,56 @@ typedef struct s_data {
 }	t_data;
 
 // CHECK
-bool	digit_check(int argc, char **argv);
-bool	is_input_correct(int argc, char **argv);
+bool		digit_check(int argc, char **argv);
+bool		is_input_correct(int argc, char **argv);
 
-// ERROR
-char	*get_error_name(t_error er);
-bool	print_error(char *str);
+// ERROR_AND_DESTROY
+char		*get_error_name(t_error er);
+bool		print_error(char *str);
+void		destroy_all_muti(t_data *data, int count);
 
 // INITIALISE
-bool	initialisation(int argc, char **argv, t_data *data);
-bool	init_mutex(t_data *data);
-bool	fork_initialisation(t_data *data, int index);
-int		allocate_philo_data(t_data *data);
-bool	allocation(t_data *data);
+bool		initialisation(int argc, char **argv, t_data *data);
+bool		init_mutex(t_data *data);
+bool		fork_initialisation(t_data *data, int index);
+int			allocate_philo_data(t_data *data);
+bool		allocation(t_data *data);
+bool		eat_initialisation(t_data *data, int index);
 
 // INITIALISE_UTILS
-size_t	philo_strlen(const char *s);
-int		philo_atoi(const char *str);
-void	*philo_calloc(size_t count, size_t size);
-void	destroy_all_muti(t_data *data, int count);
+size_t		philo_strlen(const char *s);
+int			philo_atoi(const char *str);
+void		*philo_calloc(size_t count, size_t size);
+void		destroy_all_muti(t_data *data, int count);
+bool		check_philo_atoi(t_data *data, char **argv);
 
 // THREADS
 
-bool	philo_threads(t_data *data);
-bool	monitoring(t_data *data);
-int		thread_join(t_data *data);
-
-// MUTEX
-void	*mutex_lock_and_unlock(void *arg);
-void	destroy_mutex(t_data *data);
+bool		philo_threads(t_data *data);
+bool		monitoring(t_data *data);
+int			thread_join(t_data *data);
 
 // EAT
-void	grab_forks(t_philo *philo);
-bool	odd_philos(t_philo *philo);
-bool	even_philos(t_philo *philo);
-bool	eating(t_philo *philo);
+void		grab_forks(t_philo *philo);
+bool		odd_philos(t_philo *philo);
+bool		even_philos(t_philo *philo);
+bool		eating(t_philo *philo);
 
 // EAT UTILS
-bool	right_fork(t_philo *philo);
-bool	left_fork(t_philo *philo);
-void	let_go_left_fork(t_philo *philo);
-void	let_go_right_fork(t_philo *philo);
+bool		right_fork(t_philo *philo);
+bool		left_fork(t_philo *philo);
+void		let_go_left_fork(t_philo *philo);
+void		let_go_right_fork(t_philo *philo);
+void		let_go_both_forks(t_philo *philo);
 
 // TIME
-int		get_time(void);
-int		thinking(t_philo *philo);
-bool	died(t_philo *philo);
+int			get_time(void);
+bool		thinking(t_philo *philo);
+bool		died(t_philo *philo);
+void		waiting(int wait_time);
 
 // SLEEP
-int		sleeping(t_philo *philo);
+bool		sleeping(t_philo *philo);
 
 // PRINT
 const char	*actions(int action);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   error_and_destroy.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:23:33 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/27 17:52:55 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:56:40 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,20 @@ bool	print_error(char *str)
 	write (STDERR_FILENO, str, philo_strlen(str));
 	write (STDERR_FILENO, "\n", 2);
 	return (false);
+}
+
+void	destroy_all_muti(t_data *data, int count)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_destroy(&data->die_mutex);
+	pthread_mutex_destroy(&data->each_mutex);
+	pthread_mutex_destroy(&data->lock_mutex);
+	pthread_mutex_destroy(&data->print_mutex);
+	while (i < count)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
 }
