@@ -6,14 +6,14 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 10:12:14 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/06/29 12:37:21 by ivan-mel         ###   ########.fr        #
+#    Updated: 2023/07/04 16:25:40 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= 	philo
 
 #UTILS
-FLAGS 		=	-Wall -Werror -Wextra
+FLAGS 		=	-Wall -Werror -Wextra -fsanitize=thread
 CC 			= 	gcc
 RM 			=	rm -rf
 AR			=	ar -rc
@@ -65,7 +65,7 @@ all:	${NAME}
 
 ${NAME}: ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@${CC} ${OBJ} -o ${NAME}
+	@${CC} ${OBJ} ${FLAGS} -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_Off}
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS) | $(OBJ_DIR)

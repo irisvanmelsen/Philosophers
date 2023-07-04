@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:33:02 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/29 15:46:25 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:39:29 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ int	get_time(void)
 
 bool	thinking(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->data->die_mutex);
 	if (philo->data->philo_has_died == true)
 		return (false);
+	pthread_mutex_unlock(&philo->data->die_mutex);
 	print_action(philo, THINKING);
 	return (true);
 }

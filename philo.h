@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:50:42 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/29 15:46:19 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:57:14 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ bool		died(t_philo *philo);
 void		waiting(int wait_time);
 
 // SLEEP
+bool		custom_wait(int wait_time);
 bool		sleeping(t_philo *philo);
 
 // PRINT

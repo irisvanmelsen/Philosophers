@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:43:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/29 15:41:21 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:37:27 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	*routine(void *philosopher)
 	pthread_mutex_unlock(&philo->data->lock_mutex);
 	if (philo->data->philo_created != philo->data->nb_philo)
 		return (0);
+	// if (philo->data->nb_philo == 1)
+	// 	return (one_philo(philo));
 	while (1)
 	{
 		if (eating(philo) == false)
@@ -59,8 +61,10 @@ bool	monitoring(t_data *data)
 		i = 0;
 		while (i < data->nb_philo)
 		{
+			pthread_mutex_lock(&data->die_mutex);
 			if (died(&data->philos[i]) == true)
 				return (false);
+			pthread_mutex_unlock(&data->die_mutex);
 			i++;
 		}
 		usleep(250);

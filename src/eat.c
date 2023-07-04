@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:54:37 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/06/29 15:15:17 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:12:09 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	eating(t_philo *philo)
 		return (false);
 	}
 	philo->has_eaten++;
-	// waiting(philo->data->eat_time);
+	custom_wait(philo->data->eat_time);
 	let_go_both_forks(philo);
 	return (true);
 }
