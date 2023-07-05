@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:23:33 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/05 14:18:34 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/05 16:13:12 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	destroy_all_muti(t_data *data, int count)
 	pthread_mutex_destroy(&data->die_mutex);
 	pthread_mutex_destroy(&data->each_mutex);
 	pthread_mutex_destroy(&data->lock_mutex);
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->simu_mutex);
 	while (i < count)
 	{
 		pthread_mutex_destroy(&data->forks[i]);

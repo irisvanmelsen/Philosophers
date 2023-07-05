@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:43:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/05 13:17:22 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/05 16:51:36 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ bool	monitoring(t_data *data)
 		while (i < data->nb_philo)
 		{
 			if (died(&data->philos[i]) == true)
-				return (false);
+				return(false);
 			i++;
 		}
-		usleep(100);
+		usleep(250);
 	}
 	return (true);
 }

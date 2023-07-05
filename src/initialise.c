@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:24:15 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/05 14:18:28 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/05 16:12:46 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ bool	initialisation(int argc, char **argv, t_data *data)
 			return (false);
 	}
 	data->philo_has_died = false;
+	data->stop_simulation = false;
 	init_mutex(data);
 	if (!allocation(data))
 		return (print_error(get_error_name(ERROR_ALLOCATION)));
@@ -60,6 +61,14 @@ bool	init_mutex(t_data *data)
 		pthread_mutex_destroy(&data->die_mutex);
 		pthread_mutex_destroy(&data->each_mutex);
 		pthread_mutex_destroy(&data->lock_mutex);
+		return (false);
+	}
+	if (pthread_mutex_init(&data->simu_mutex, NULL) != 0)
+	{
+		pthread_mutex_destroy(&data->die_mutex);
+		pthread_mutex_destroy(&data->each_mutex);
+		pthread_mutex_destroy(&data->lock_mutex);
+		pthread_mutex_destroy(&data->print_mutex);
 		return (false);
 	}
 	return (true);

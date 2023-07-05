@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:50:42 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/05 14:18:31 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/05 16:22:41 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_philo {
 
 typedef struct s_data {
 	int				philosophers;
+	bool			stop_simulation;
 	bool			philo_has_died;
 	int				nb_philo;
 	int				die_time;
@@ -77,6 +78,7 @@ typedef struct s_data {
 	int				start_time;
 	int				philo_created;
 	pthread_t		*philo_thread;
+	pthread_mutex_t	simu_mutex;
 	pthread_mutex_t	die_mutex;
 	pthread_mutex_t	each_mutex;
 	pthread_mutex_t	lock_mutex;
@@ -134,6 +136,7 @@ void		let_go_both_forks(t_philo *philo);
 int			get_time(void);
 bool		thinking(t_philo *philo);
 bool		died(t_philo *philo);
+void		stop_simulation(t_philo *philo);
 void		waiting(int wait_time);
 
 // SLEEP

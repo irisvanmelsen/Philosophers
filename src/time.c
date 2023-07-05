@@ -6,7 +6,7 @@
 /*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:33:02 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/05 13:45:46 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/05 16:50:53 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ void	waiting(int wait_time)
 		usleep(100);
 }
 
+void	stop_simulation(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->simu_mutex);
+	philo->data->stop_simulation = true;
+	pthread_mutex_unlock(&philo->data->simu_mutex);
+}
+
 bool	died(t_philo *philo)
 {
 	int	last_mealtime;
@@ -63,8 +70,9 @@ bool	died(t_philo *philo)
 	{
 		pthread_mutex_lock(&philo->data->die_mutex);
 		philo->data->philo_has_died = true;
-		print_action(philo, DIED);
+		stop_simulation(philo);
 		pthread_mutex_unlock(&philo->data->die_mutex);
+		print_action(philo, DIED);
 		return (true);
 	}
 	return (false);

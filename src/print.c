@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:22:11 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/04 16:44:14 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:35:50 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ const char	*actions(int action)
 
 bool	print_action(t_philo *philo, int action)
 {
-	if (has_philo_died(philo) == true && action != DIED)
+	if (action != DIED && has_philo_died(philo) == true)
 		return (false);
 	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%d %d %s\n", get_time() - philo->data->start_time, philo->philo_id,
