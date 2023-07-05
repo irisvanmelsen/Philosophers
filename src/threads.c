@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:43:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/04 16:37:27 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/05 13:17:22 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 
 // lock and unlock is done so they all go eat at the same time
 
+void	*one_philo(t_philo *philo)
+{
+	print_action(philo, FORK);
+	custom_wait(philo->data->eat_time);
+	pthread_mutex_unlock(philo->right_fork);
+	return (NULL);
+}
+
 void	*routine(void *philosopher)
 {
 	t_philo	*philo;
@@ -37,8 +45,8 @@ void	*routine(void *philosopher)
 	pthread_mutex_unlock(&philo->data->lock_mutex);
 	if (philo->data->philo_created != philo->data->nb_philo)
 		return (0);
-	// if (philo->data->nb_philo == 1)
-	// 	return (one_philo(philo));
+	if (philo->data->nb_philo == 1)
+		return (one_philo(philo));
 	while (1)
 	{
 		if (eating(philo) == false)
@@ -55,19 +63,17 @@ bool	monitoring(t_data *data)
 {
 	int	i;
 
-	usleep(250);
+	usleep(100);
 	while (1)
 	{
 		i = 0;
 		while (i < data->nb_philo)
 		{
-			pthread_mutex_lock(&data->die_mutex);
 			if (died(&data->philos[i]) == true)
 				return (false);
-			pthread_mutex_unlock(&data->die_mutex);
 			i++;
 		}
-		usleep(250);
+		usleep(100);
 	}
 	return (true);
 }

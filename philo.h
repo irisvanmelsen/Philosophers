@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:50:42 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/04 15:57:14 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/05 14:18:31 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ bool		check_philo_atoi(t_data *data, char **argv);
 
 // THREADS
 
+void		*one_philo(t_philo *philo);
 bool		philo_threads(t_data *data);
+void		*routine(void *philosopher);
 bool		monitoring(t_data *data);
 int			thread_join(t_data *data);
 
