@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   eat_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 10:18:37 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/06 15:58:15 by ivan-mel         ###   ########.fr       */
+/*   Created: 2023/07/06 17:32:26 by ivan-mel          #+#    #+#             */
+/*   Updated: 2023/07/06 17:34:50 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	main(int argc, char **argv)
+void	update_has_eaten(t_philo *philo)
 {
-	t_data	data;
-
-	if (is_input_correct(argc, argv) == false)
-		return (EXIT_FAILURE);
-	if (initialisation(argc, argv, &data) == false)
-		return (EXIT_FAILURE);
-	philo_threads(&data);
-	monitoring(&data);
-	thread_join(&data);
-	return (EXIT_SUCCESS);
+	pthread_mutex_lock(&philo->eat_mutex);
+	philo->has_eaten++;
+	pthread_mutex_unlock(&philo->eat_mutex);
 }

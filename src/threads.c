@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:43:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/05 16:51:36 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/06 17:37:11 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 void	*one_philo(t_philo *philo)
 {
 	print_action(philo, FORK);
-	custom_wait(philo->data->eat_time);
+	custom_wait(philo, philo->data->eat_time);
 	pthread_mutex_unlock(philo->right_fork);
 	return (NULL);
 }
@@ -70,7 +70,7 @@ bool	monitoring(t_data *data)
 		while (i < data->nb_philo)
 		{
 			if (died(&data->philos[i]) == true)
-				return(false);
+				return (false);
 			i++;
 		}
 		usleep(250);
@@ -85,7 +85,7 @@ bool	philo_threads(t_data *data)
 	i = 0;
 	data->philo_created = 0;
 	pthread_mutex_lock(&data->lock_mutex);
-	printf("nb_philo: %d\n", data->nb_philo);
+	data->start_time = get_time();
 	while (i < data->nb_philo)
 	{
 		if (pthread_create(&data->philo_thread[i], NULL, &routine,
@@ -95,9 +95,9 @@ bool	philo_threads(t_data *data)
 			return (false);
 		}
 		data->philo_created++;
+		data->philos[i].last_meal_time = data->start_time;
 		i++;
 	}
-	data->start_time = get_time();
 	pthread_mutex_unlock(&data->lock_mutex);
 	return (true);
 }
@@ -109,12 +109,9 @@ int	thread_join(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		if (pthread_join(data->philo_thread[i], NULL))
-		{
-			destroy_all_muti(data, data->nb_philo);
-			return (EXIT_FAILURE);
-		}
+		pthread_join(data->philo_thread[i], NULL);
 		i++;
 	}
+	destroy_all_muti(data, data->nb_philo);
 	return (EXIT_SUCCESS);
 }

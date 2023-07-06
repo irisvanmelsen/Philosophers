@@ -6,14 +6,14 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 10:12:14 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/07/04 16:25:40 by ivan-mel         ###   ########.fr        #
+#    Updated: 2023/07/06 17:32:41 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= 	philo
 
 #UTILS
-FLAGS 		=	-Wall -Werror -Wextra -fsanitize=thread
+FLAGS 		=	-Wall -Werror -Wextra
 CC 			= 	gcc
 RM 			=	rm -rf
 AR			=	ar -rc
@@ -25,6 +25,7 @@ SRC			=	main.c \
 				initialise_utils.c \
 				eat.c \
 				eat_utils.c \
+				eat_utils2.c \
 				sleep.c \
 				print.c \
 				time.c

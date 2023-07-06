@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:33:02 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/05 16:50:53 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/06 17:18:27 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ bool	thinking(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->die_mutex);
 	if (philo->data->philo_has_died == true)
-		return (false);
+		return (pthread_mutex_unlock(&philo->data->die_mutex), false);
 	pthread_mutex_unlock(&philo->data->die_mutex);
 	print_action(philo, THINKING);
+	printf("thinking test\n");
 	return (true);
 }
 
@@ -52,13 +53,6 @@ void	waiting(int wait_time)
 		usleep(100);
 }
 
-void	stop_simulation(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->data->simu_mutex);
-	philo->data->stop_simulation = true;
-	pthread_mutex_unlock(&philo->data->simu_mutex);
-}
-
 bool	died(t_philo *philo)
 {
 	int	last_mealtime;
@@ -66,11 +60,10 @@ bool	died(t_philo *philo)
 	pthread_mutex_lock(&philo->eat_mutex);
 	last_mealtime = philo->last_meal_time;
 	pthread_mutex_unlock(&philo->eat_mutex);
-	if (last_mealtime - philo->data->start_time > philo->data->die_time)
+	if ( get_time() - last_mealtime > philo->data->die_time)
 	{
 		pthread_mutex_lock(&philo->data->die_mutex);
 		philo->data->philo_has_died = true;
-		stop_simulation(philo);
 		pthread_mutex_unlock(&philo->data->die_mutex);
 		print_action(philo, DIED);
 		return (true);
