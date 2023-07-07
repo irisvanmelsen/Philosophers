@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:54:37 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/06 17:35:10 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/07 22:29:47 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ bool	eating(t_philo *philo)
 		let_go_both_forks(philo);
 		return (false);
 	}
-	update_has_eaten(philo);
 	custom_wait(philo, philo->data->eat_time);
+	update_has_eaten(philo);
 	let_go_both_forks(philo);
 	return (true);
 }

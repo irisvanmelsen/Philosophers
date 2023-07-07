@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialise.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:24:15 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/06 17:19:05 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/07 22:23:00 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ bool	initialisation(int argc, char **argv, t_data *data)
 		return (print_error(get_error_name(ERROR_INVALID_ARGUMENTS)));
 	if (check_philo_atoi(data, argv) == false)
 		return (false);
+	data->max_amount_eating = false;
 	if (argc == 6)
 	{
 		if (!argv[EACH_TIME])
 			return (print_error(get_error_name(ERROR_INVALID_ARGUMENTS)));
+		data->max_amount_eating = true;
 		data->each_time = philo_atoi(argv[EACH_TIME]);
 		if (!data->each_time)
 			return (false);

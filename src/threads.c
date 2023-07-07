@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:43:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/06 17:37:11 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/07 22:42:59 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,25 @@ bool	monitoring(t_data *data)
 	while (1)
 	{
 		i = 0;
+		data->finished_eating = 0;
 		while (i < data->nb_philo)
 		{
+			if (data->max_amount_eating == true)
+				{
+						pthread_mutex_lock(&data->philos->eat_mutex);
+						if (data->philos[i].has_eaten >= data->each_time)
+							data->finished_eating++;
+						pthread_mutex_unlock(&data->philos->eat_mutex);
+					
+				}
+			if (data->max_amount_eating == true && data->nb_philo == data->finished_eating)
+				{
+					pthread_mutex_lock(&data->die_mutex);
+					data->philo_has_died = true;
+					pthread_mutex_unlock(&data->die_mutex);
+					// print_action(data->philos, DIED);
+					return (false);
+				}
 			if (died(&data->philos[i]) == true)
 				return (false);
 			i++;

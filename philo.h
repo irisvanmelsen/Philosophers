@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:50:42 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/06 17:34:49 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/07 22:15:24 by iris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_philo {
 typedef struct s_data {
 	int				philosophers;
 	bool			philo_has_died;
+	bool			max_amount_eating;
+	int				finished_eating;
 	int				nb_philo;
 	int				die_time;
 	int				eat_time;
@@ -138,7 +140,6 @@ void		update_has_eaten(t_philo *philo);
 int			get_time(void);
 bool		thinking(t_philo *philo);
 bool		died(t_philo *philo);
-void		waiting(int wait_time);
 
 // SLEEP
 bool		custom_wait(t_philo *philo, int wait_time);
