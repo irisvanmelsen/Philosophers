@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:43:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/07 22:42:59 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/10 17:04:33 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ bool	monitoring(t_data *data)
 					pthread_mutex_lock(&data->die_mutex);
 					data->philo_has_died = true;
 					pthread_mutex_unlock(&data->die_mutex);
-					// print_action(data->philos, DIED);
 					return (false);
 				}
 			if (died(&data->philos[i]) == true)

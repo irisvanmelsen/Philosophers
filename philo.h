@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:50:42 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/07 22:15:24 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/10 17:03:08 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum e_error {
 	ERROR_INVALID_ARGUMENTS,
 	ERROR_THREAD,
 	ERROR_ALLOCATION,
+	ERROR_INPUT,
 }	t_error;
 
 // nb_philo: number of philosophers and number of forks

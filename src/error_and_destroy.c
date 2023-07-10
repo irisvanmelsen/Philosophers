@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:23:33 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/06 16:04:41 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:02:59 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*get_error_name(t_error er)
 	[ERROR_AMOUNT_ARGUMENTS] = "Invalid Amount of Arguments", \
 	[ERROR_INVALID_ARGUMENTS] = "Invalid Argument", \
 	[ERROR_THREAD] = "Thread Creation Failure", \
-	[ERROR_ALLOCATION] = "Allocation Failure"};
+	[ERROR_ALLOCATION] = "Allocation Failure", \
+	[ERROR_INPUT] = "Invalid Number"};
 
 	return (str[er]);
 }
@@ -39,7 +40,6 @@ void	destroy_all_muti(t_data *data, int count)
 	pthread_mutex_destroy(&data->each_mutex);
 	pthread_mutex_destroy(&data->lock_mutex);
 	pthread_mutex_destroy(&data->print_mutex);
-	// pthread_mutex_destroy(&data->simu_mutex);
 	while (i < count)
 	{
 		pthread_mutex_destroy(&data->forks[i]);

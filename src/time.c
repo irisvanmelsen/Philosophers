@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:33:02 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/07 22:31:16 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/10 16:23:07 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ bool	died(t_philo *philo)
 	pthread_mutex_lock(&philo->eat_mutex);
 	last_mealtime = philo->last_meal_time;
 	pthread_mutex_unlock(&philo->eat_mutex);
-	if ( get_time() - last_mealtime > philo->data->die_time)
+	if (get_time() - last_mealtime > philo->data->die_time)
 	{
 		pthread_mutex_lock(&philo->data->die_mutex);
 		philo->data->philo_has_died = true;

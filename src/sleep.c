@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:17:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/06 16:28:58 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:23:24 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ bool	custom_wait(t_philo *philo, int wait_time)
 			return (pthread_mutex_unlock(&philo->data->die_mutex), false);
 		pthread_mutex_unlock(&philo->data->die_mutex);
 		usleep(250);
-		// printf("test123\n");
 	}
 	return (true);
 }
