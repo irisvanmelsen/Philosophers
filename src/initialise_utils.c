@@ -6,13 +6,11 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:27:34 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/10 16:57:17 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:59:32 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-// add overflow protection atoi
 
 size_t	philo_strlen(const char *s)
 {
@@ -45,7 +43,7 @@ bool	check_philo_atoi(t_data *data, char **argv)
 
 int	philo_atoi(const char *str)
 {
-	int	i;
+	int				i;
 	unsigned int	result;
 	unsigned int	prev_res;
 
@@ -82,4 +80,33 @@ void	*philo_calloc(size_t count, size_t size)
 		i++;
 	}
 	return ((void *)ptr);
+}
+
+bool	allocation(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (allocate_philo_data(data))
+		return (EXIT_FAILURE);
+	while (i < data->nb_philo)
+	{
+		data->philos[i].data = data;
+		data->philos[i].philo_id = i + 1;
+		data->philos[i].left_fork = NULL;
+		data->philos[i].right_fork = NULL;
+		data->philos[i].has_eaten = 0;
+		if (fork_initialisation(data, data->philos[i].philo_id - 1) == false)
+		{
+			destroy_all_muti(data, i);
+			return (false);
+		}
+		if (eat_initialisation(data, data->philos[i].philo_id - 1) == false)
+		{
+			destroy_all_muti(data, i);
+			return (false);
+		}
+		i++;
+	}
+	return (true);
 }

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:52:21 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/05 13:55:09 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/11 15:59:10 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-// make function that checks if values are correct / make sense
 
 bool	digit_check(int argc, char **argv)
 {
@@ -20,6 +18,8 @@ bool	digit_check(int argc, char **argv)
 	int	x;
 
 	y = 1;
+	if (argv[1][0] == '0')
+		return (false);
 	while (y < argc)
 	{
 		x = 0;

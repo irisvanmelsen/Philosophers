@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:24:15 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/10 17:02:33 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:59:38 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,33 +105,4 @@ int	allocate_philo_data(t_data *data)
 		return (print_error(get_error_name(ERROR_ALLOCATION)));
 	}
 	return (EXIT_SUCCESS);
-}
-
-bool	allocation(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (allocate_philo_data(data))
-		return (EXIT_FAILURE);
-	while (i < data->nb_philo)
-	{
-		data->philos[i].data = data;
-		data->philos[i].philo_id = i + 1;
-		data->philos[i].left_fork = NULL;
-		data->philos[i].right_fork = NULL;
-		data->philos[i].has_eaten = 0;
-		if (fork_initialisation(data, data->philos[i].philo_id - 1) == false)
-		{
-			destroy_all_muti(data, i);
-			return (false);
-		}
-		if (eat_initialisation(data, data->philos[i].philo_id - 1) == false)
-		{
-			destroy_all_muti(data, i);
-			return (false);
-		}
-		i++;
-	}
-	return (true);
 }

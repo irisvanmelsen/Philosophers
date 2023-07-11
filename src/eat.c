@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:54:37 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/07 22:29:47 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/11 15:59:19 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,21 @@ bool	even_philos(t_philo *philo)
 
 bool	eating(t_philo *philo)
 {
+	if (philo->data->max_amount_eating == true
+		&& philo->data->nb_philo == philo->data->finished_eating + 1)
+		return (false);
 	grab_forks(philo);
 	pthread_mutex_lock(&philo->eat_mutex);
 	philo->last_meal_time = get_time();
 	pthread_mutex_unlock(&philo->eat_mutex);
 	if (print_action(philo, EATING) == false)
 	{
+		philo->data->philo_has_died = true;
 		let_go_both_forks(philo);
 		return (false);
 	}
-	custom_wait(philo, philo->data->eat_time);
 	update_has_eaten(philo);
+	custom_wait(philo, philo->data->eat_time);
 	let_go_both_forks(philo);
 	return (true);
 }

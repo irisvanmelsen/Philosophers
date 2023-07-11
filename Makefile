@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 10:12:14 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/07/06 17:32:41 by ivan-mel         ###   ########.fr        #
+#    Updated: 2023/07/10 17:06:33 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ AR			=	ar -rc
 SRC			=	main.c \
 				check.c \
 				threads.c \
+				threads_utils.c \
 				error_and_destroy.c \
 				initialise.c \
 				initialise_utils.c \

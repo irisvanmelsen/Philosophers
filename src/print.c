@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iris <iris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:22:11 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/07 22:18:15 by iris             ###   ########.fr       */
+/*   Updated: 2023/07/11 15:59:41 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-// perhaps both functions could become one
 
 static bool	has_philo_died(t_philo *philo)
 {
@@ -38,6 +36,9 @@ const char	*actions(int action)
 
 bool	print_action(t_philo *philo, int action)
 {
+	if (philo->data->max_amount_eating == true
+		&& philo->data->nb_philo == philo->data->finished_eating + 1)
+		return (false);
 	if (action != DIED && has_philo_died(philo) == true)
 		return (false);
 	pthread_mutex_lock(&philo->data->print_mutex);

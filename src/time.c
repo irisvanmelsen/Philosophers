@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:33:02 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/10 16:23:07 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:10:23 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int	get_time(void)
 
 bool	thinking(t_philo *philo)
 {
+	if (philo->data->max_amount_eating == true
+		&& philo->data->nb_philo == philo->data->finished_eating + 1)
+		return (false);
 	pthread_mutex_lock(&philo->data->die_mutex);
 	if (philo->data->philo_has_died == true)
 		return (pthread_mutex_unlock(&philo->data->die_mutex), false);
@@ -43,23 +46,17 @@ bool	thinking(t_philo *philo)
 	return (true);
 }
 
-// void	waiting(int wait_time)
-// {
-// 	int	start_time;
-
-// 	start_time = get_time();
-// 	while (get_time() - start_time < wait_time)
-// 		usleep(100);
-// }
-
 bool	died(t_philo *philo)
 {
 	int	last_mealtime;
 
+	if (philo->data->max_amount_eating == true
+		&& philo->data->nb_philo == philo->data->finished_eating + 1)
+		return (false);
 	pthread_mutex_lock(&philo->eat_mutex);
 	last_mealtime = philo->last_meal_time;
 	pthread_mutex_unlock(&philo->eat_mutex);
-	if (get_time() - last_mealtime > philo->data->die_time)
+	if (get_time() - last_mealtime >= philo->data->die_time)
 	{
 		pthread_mutex_lock(&philo->data->die_mutex);
 		philo->data->philo_has_died = true;

@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:43:25 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/10 17:04:33 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:59:52 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,8 @@ bool	monitoring(t_data *data)
 		data->finished_eating = 0;
 		while (i < data->nb_philo)
 		{
-			if (data->max_amount_eating == true)
-				{
-						pthread_mutex_lock(&data->philos->eat_mutex);
-						if (data->philos[i].has_eaten >= data->each_time)
-							data->finished_eating++;
-						pthread_mutex_unlock(&data->philos->eat_mutex);
-					
-				}
-			if (data->max_amount_eating == true && data->nb_philo == data->finished_eating)
-				{
-					pthread_mutex_lock(&data->die_mutex);
-					data->philo_has_died = true;
-					pthread_mutex_unlock(&data->die_mutex);
-					return (false);
-				}
+			if (eat_monitoring(data, i) == false)
+				return (false);
 			if (died(&data->philos[i]) == true)
 				return (false);
 			i++;

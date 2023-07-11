@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:50:42 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/07/10 17:03:08 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:15:35 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,15 +103,14 @@ bool		initialisation(int argc, char **argv, t_data *data);
 bool		init_mutex(t_data *data);
 bool		fork_initialisation(t_data *data, int index);
 int			allocate_philo_data(t_data *data);
-bool		allocation(t_data *data);
 bool		eat_initialisation(t_data *data, int index);
 
 // INITIALISE_UTILS
 size_t		philo_strlen(const char *s);
+bool		check_philo_atoi(t_data *data, char **argv);
 int			philo_atoi(const char *str);
 void		*philo_calloc(size_t count, size_t size);
-void		destroy_all_muti(t_data *data, int count);
-bool		check_philo_atoi(t_data *data, char **argv);
+bool		allocation(t_data *data);
 
 // THREADS
 
@@ -120,6 +119,10 @@ bool		philo_threads(t_data *data);
 void		*routine(void *philosopher);
 bool		monitoring(t_data *data);
 int			thread_join(t_data *data);
+
+// THREADS_UTILS
+
+bool		eat_monitoring(t_data *data, int i);
 
 // EAT
 void		grab_forks(t_philo *philo);
